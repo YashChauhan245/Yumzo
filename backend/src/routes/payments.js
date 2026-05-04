@@ -1,15 +1,18 @@
 const express = require('express');
 const { body } = require('express-validator');
-const { handlePayment, getPaymentStatus } = require('../controllers/paymentController');
 const { authenticate, requireCustomer } = require('../middleware/auth');
+const stripePaymentController = require('../controllers/stripePaymentController');
 
 const router = express.Router();
 
-// All payment routes require authentication
+// Stripe webhook endpoint (no authentication required)
+router.post('/webhook/stripe', stripePaymentController.handleStripeWebhook);
+
+// All other payment routes require authentication
 router.use(authenticate, requireCustomer);
 
-// Validation for payment request
-const paymentValidation = [
+// Validation for mock payment request
+const mockPaymentValidation = [
   body('payment_method')
     .notEmpty()
     .withMessage('payment_method is required')
@@ -22,10 +25,14 @@ const paymentValidation = [
     .withMessage('payment_details must be a string'),
 ];
 
-// POST /api/payments/:orderId - process payment for an order
-router.post('/:orderId', paymentValidation, handlePayment);
+// Stripe payment intent routes
+router.post('/:orderId/stripe/create-intent', stripePaymentController.createStripePaymentIntent);
+router.post('/:orderId/stripe/confirm', stripePaymentController.confirmStripePayment);
 
-// GET  /api/payments/:orderId - get payment status for an order
-router.get('/:orderId', getPaymentStatus);
+// Mock payment endpoint (for testing, keeps backwards compatibility)
+router.post('/:orderId/mock', mockPaymentValidation, stripePaymentController.handleMockPayment);
+
+// Get payment status
+router.get('/:orderId', stripePaymentController.getPaymentStatus);
 
 module.exports = router;

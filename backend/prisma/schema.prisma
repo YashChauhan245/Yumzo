@@ -187,18 +187,22 @@ model OrderItem {
 }
 
 model Payment {
-  id              String        @id @default(uuid())
-  orderId         String        @unique @map("order_id")
-  userId          String        @map("user_id")
-  amount          Decimal       @db.Decimal(10, 2)
-  method          String        @map("payment_method")
-  status          String        @default("pending") @map("payment_status")
-  transactionId   String?       @map("transaction_id")
-  failureReason   String?       @map("failure_reason")
-  createdAt       DateTime      @default(now()) @map("created_at")
+  id                    String        @id @default(uuid())
+  orderId               String        @unique @map("order_id")
+  userId                String        @map("user_id")
+  amount                Decimal       @db.Decimal(10, 2)
+  method                String        @map("payment_method")
+  status                String        @default("pending") @map("payment_status")
+  transactionId         String?       @map("transaction_id")
+  failureReason         String?       @map("failure_reason")
+  stripePaymentIntentId String?       @map("stripe_payment_intent_id")
+  stripeCustomerId      String?       @map("stripe_customer_id")
+  receiptUrl            String?       @map("receipt_url")
+  createdAt             DateTime      @default(now()) @map("created_at")
+  updatedAt             DateTime      @updatedAt @map("updated_at")
 
-  order           Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
-  user            User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  order                 Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  user                  User          @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@map("payments")
 }

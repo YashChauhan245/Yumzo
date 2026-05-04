@@ -13,6 +13,8 @@ const userRoutes = require('./routes/user');
 const driverRoutes = require('./routes/driver');
 const adminRoutes = require('./routes/admin');
 const uploadRoutes = require('./routes/uploads');
+const paymentRoutes = require('./routes/payments');
+const analyticsRoutes = require('./routes/analytics');
 const { setSocketServer } = require('./config/socket');
 const logger = require('./config/logger');
 const { errorHandler } = require('./config/errors');
@@ -120,6 +122,8 @@ app.use('/api/user', userRoutes);
 app.use('/api/driver', driverRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/uploads', uploadRoutes);
+app.use('/api/payments', paymentRoutes);
+app.use('/api/admin/analytics', analyticsRoutes);
 
 // 404 handler
 app.use((_req, res) =>
