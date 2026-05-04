@@ -1,0 +1,120 @@
+{
+  "common": {
+    "app_name": "यमजो",
+    "loading": "लोड हो रहा है...",
+    "error": "कुछ गलत हो गया",
+    "success": "सफल",
+    "cancel": "रद्द करें",
+    "save": "बचाएं",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "close": "बंद करें",
+    "search": "खोजें",
+    "no_results": "कोई परिणाम नहीं मिले",
+    "back": "वापस"
+  },
+  "nav": {
+    "home": "होम",
+    "reels": "रील्स",
+    "cart": "कार्ट",
+    "orders": "आदेश",
+    "group_order": "ग्रुप ऑर्डर",
+    "dashboard": "डैशबोर्ड",
+    "logout": "लॉगआउट",
+    "light": "हल्का",
+    "dark": "अंधेरा",
+    "filter": "फ़िल्टर"
+  },
+  "home": {
+    "discover": "रेस्तरां खोजें और तेजी से ऑर्डर करें",
+    "search_placeholder": "रेस्तरां, व्यंजन, शहर खोजें...",
+    "all_restaurants": "सभी रेस्तरां",
+    "no_restaurants": "कोई रेस्तरां नहीं मिला",
+    "restaurants_available": "रेस्तरां उपलब्ध",
+    "avg_rating": "औसत रेटिंग",
+    "avg_delivery": "औसत डिलीवरी",
+    "view_menu": "मेनू देखें",
+    "open_now": "अभी खुला है"
+  },
+  "filters": {
+    "min_rating": "न्यूनतम रेटिंग",
+    "max_price": "अधिकतम मूल्य",
+    "budget": "बजट",
+    "premium": "प्रीमियम",
+    "reset_filters": "फ़िल्टर रीसेट करें"
+  },
+  "restaurant": {
+    "menu": "मेनू",
+    "reviews": "समीक्षाएं",
+    "add_review": "समीक्षा जोड़ें",
+    "rating": "रेटिंग",
+    "review": "समीक्षा",
+    "submit_review": "समीक्षा जमा करें",
+    "smart_combo": "स्मार्ट कॉम्बो",
+    "quick_lunch": "जल्दी दोपहर का खाना",
+    "high_protein": "उच्च प्रोटीन",
+    "under_budget": "₹200 के तहत"
+  },
+  "cart": {
+    "empty_cart": "आपकी कार्ट खाली है",
+    "total": "कुल",
+    "proceed_checkout": "चेकआउट के लिए आगे बढ़ें",
+    "remove": "हटाएं",
+    "add_more": "अधिक आइटम जोड़ें"
+  },
+  "checkout": {
+    "delivery_address": "डिलीवरी पता",
+    "manual_entry": "पता मैन्युअल रूप से दर्ज करें",
+    "saved_address": "सहेजे गए पते का उपयोग करें",
+    "use_gps": "वर्तमान स्थान का उपयोग करें",
+    "payment_method": "भुगतान विधि",
+    "card": "कार्ड",
+    "upi": "यूपीआई",
+    "cash_on_delivery": "डिलीवरी पर नकद",
+    "place_order": "ऑर्डर रखें",
+    "order_placed": "ऑर्डर सफलतापूर्वक रखा गया"
+  },
+  "orders": {
+    "my_orders": "मेरे आदेश",
+    "order_history": "ऑर्डर इतिहास",
+    "no_orders": "अभी तक कोई आदेश नहीं",
+    "status": "स्थिति",
+    "total_amount": "कुल राशि",
+    "pending": "लंबित",
+    "confirmed": "पुष्टि की गई",
+    "preparing": "तैयारी",
+    "picked_up": "पिक अप किया गया",
+    "out_for_delivery": "डिलीवरी के लिए निकल गया",
+    "delivered": "डिलीवर किया गया",
+    "cancelled": "रद्द कर दिया गया",
+    "cancel_order": "ऑर्डर रद्द करें",
+    "track_order": "ऑर्डर ट्रैक करें"
+  },
+  "notifications": {
+    "notifications": "सूचनाएं",
+    "unread": "अपठित",
+    "mark_as_read": "पढ़ी गई के रूप में चिह्नित करें",
+    "delete": "हटाएं",
+    "no_notifications": "कोई सूचना नहीं"
+  },
+  "wishlist": {
+    "wishlist": "मेरी पसंदीदा",
+    "add_to_wishlist": "पसंदीदा में जोड़ें",
+    "remove_from_wishlist": "पसंदीदा से हटाएं",
+    "empty_wishlist": "अभी तक कोई पसंदीदा नहीं",
+    "view_favorite": "यह पसंदीदा देखें"
+  },
+  "referral": {
+    "referral_program": "रेफरल प्रोग्राम",
+    "my_referral": "मेरा रेफरल कोड",
+    "share_code": "अपना कोड साझा करें",
+    "referral_code": "रेफरल कोड",
+    "credit_earned": "क्रेडिट अर्जित किया",
+    "apply_code": "रेफरल कोड लागू करें",
+    "enter_code": "कोड दर्ज करें",
+    "apply": "लागू करें",
+    "code_applied": "कोड सफलतापूर्वक लागू किया गया",
+    "invalid_code": "अमान्य या समाप्त कोड",
+    "earn_credit": "जब आपका मित्र ऑर्डर करे तो ₹50 क्रेडिट अर्जित करें"
+  }
+}

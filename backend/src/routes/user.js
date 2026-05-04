@@ -13,6 +13,9 @@ const { placeOrder, getOrderHistory, getOrder, cancelOrder, getOrderTracking } =
 const { handlePayment, getPaymentStatus } = require('../controllers/paymentController');
 const { getReels, toggleReelLike, getReelComments, addReelComment } = require('../controllers/reelController');
 const { getAddresses, addAddress, editAddress, removeAddress } = require('../controllers/addressController');
+const { getWishlist, addToWishlist, removeFromWishlist, checkInWishlist } = require('../controllers/wishlistController');
+const { getUserReferrals, createReferral, applyReferralCode, validateReferralCode } = require('../controllers/referralController');
+const { getNotifications, getUnreadCount, markAsRead, markAllAsRead, deleteNotification } = require('../controllers/notificationController');
 const groupOrderRoutes = require('./groupOrder');
 
 const router = express.Router();
@@ -187,6 +190,53 @@ router.post(
       .withMessage('comment must be between 1 and 280 characters'),
   ],
   addReelComment,
+);
+
+// Customer features: wishlist/favorites.
+router.get('/wishlist', getWishlist);
+router.post(
+  '/wishlist/:restaurantId',
+  [param('restaurantId').isUUID().withMessage('restaurantId must be a valid UUID')],
+  addToWishlist,
+);
+router.delete(
+  '/wishlist/:restaurantId',
+  [param('restaurantId').isUUID().withMessage('restaurantId must be a valid UUID')],
+  removeFromWishlist,
+);
+router.get(
+  '/wishlist/:restaurantId/exists',
+  [param('restaurantId').isUUID().withMessage('restaurantId must be a valid UUID')],
+  checkInWishlist,
+);
+
+// Customer features: referrals.
+router.get('/referrals', getUserReferrals);
+router.post('/referrals/create', createReferral);
+router.post(
+  '/referrals/apply',
+  [body('code').trim().notEmpty().withMessage('code is required')],
+  applyReferralCode,
+);
+router.get(
+  '/referrals/:code/validate',
+  [param('code').trim().notEmpty().withMessage('code is required')],
+  validateReferralCode,
+);
+
+// Customer features: notifications.
+router.get('/notifications', getNotifications);
+router.get('/notifications/unread/count', getUnreadCount);
+router.patch(
+  '/notifications/:notificationId/read',
+  [param('notificationId').isUUID().withMessage('notificationId must be a valid UUID')],
+  markAsRead,
+);
+router.patch('/notifications/all/read', markAllAsRead);
+router.delete(
+  '/notifications/:notificationId',
+  [param('notificationId').isUUID().withMessage('notificationId must be a valid UUID')],
+  deleteNotification,
 );
 
 module.exports = router;

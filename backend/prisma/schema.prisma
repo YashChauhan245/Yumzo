@@ -42,6 +42,10 @@ model User {
   deliveryProofs   DeliveryProof[]
   qrVerifications  QrSealVerification[]
   restaurantReviews RestaurantReview[]
+  wishlists        Wishlist[]
+  referrals        Referral[]
+  referralUsages   ReferralUsage[]
+  notifications    Notification[]
 
   @@map("users")
 }
@@ -84,6 +88,7 @@ model Restaurant {
   cartItems   CartItem[]
   reviews     RestaurantReview[]
   groupOrders GroupOrder[]
+  wishlists   Wishlist[]
 
   @@map("restaurants")
 }
@@ -313,4 +318,62 @@ model QrSealVerification {
 
   order            Order      @relation(fields: [orderId], references: [id], onDelete: Cascade)
   user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Wishlist {
+  id               String     @id @default(uuid())
+  userId           String     @map("user_id")
+  restaurantId     String     @map("restaurant_id")
+  createdAt        DateTime   @default(now()) @map("created_at")
+
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  restaurant       Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, restaurantId])
+  @@map("wishlists")
+}
+
+model Referral {
+  id               String     @id @default(uuid())
+  referrerId       String     @map("referrer_id")
+  referralCode     String     @unique @map("referral_code")
+  maxUses          Int        @default(999) @map("max_uses")
+  currentUses      Int        @default(0) @map("current_uses")
+  creditAmount     Decimal    @db.Decimal(10, 2) @map("credit_amount")
+  isActive         Boolean    @default(true) @map("is_active")
+  expiresAt        DateTime?  @map("expires_at")
+  createdAt        DateTime   @default(now()) @map("created_at")
+
+  referrer         User       @relation(fields: [referrerId], references: [id], onDelete: Cascade)
+  usages           ReferralUsage[]
+
+  @@map("referrals")
+}
+
+model ReferralUsage {
+  id               String     @id @default(uuid())
+  referralId       String     @map("referral_id")
+  refereeId        String     @map("referee_id")
+  creditApplied    Decimal    @db.Decimal(10, 2) @map("credit_applied")
+  createdAt        DateTime   @default(now()) @map("created_at")
+
+  referral         Referral   @relation(fields: [referralId], references: [id], onDelete: Cascade)
+  referee          User       @relation(fields: [refereeId], references: [id], onDelete: Cascade)
+
+  @@map("referral_usages")
+}
+
+model Notification {
+  id               String     @id @default(uuid())
+  userId           String     @map("user_id")
+  type             String     // "order_status", "payment", "promo", "delivery"
+  title            String
+  message          String
+  data             String?    // JSON stringified data
+  isRead           Boolean    @default(false) @map("is_read")
+  createdAt        DateTime   @default(now()) @map("created_at")
+
+  user             User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("notifications")
 }

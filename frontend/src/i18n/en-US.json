@@ -1,0 +1,120 @@
+{
+  "common": {
+    "app_name": "Yumzo",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "close": "Close",
+    "search": "Search",
+    "no_results": "No results found",
+    "back": "Back"
+  },
+  "nav": {
+    "home": "Home",
+    "reels": "Reels",
+    "cart": "Cart",
+    "orders": "Orders",
+    "group_order": "Group Order",
+    "dashboard": "Dashboard",
+    "logout": "Logout",
+    "light": "Light",
+    "dark": "Dark",
+    "filter": "Filters"
+  },
+  "home": {
+    "discover": "Discover restaurants and order faster",
+    "search_placeholder": "Search restaurants, cuisines, cities...",
+    "all_restaurants": "All Restaurants",
+    "no_restaurants": "No restaurants found",
+    "restaurants_available": "restaurants available",
+    "avg_rating": "Avg Rating",
+    "avg_delivery": "Avg Delivery",
+    "view_menu": "View Menu",
+    "open_now": "Open now"
+  },
+  "filters": {
+    "min_rating": "Minimum Rating",
+    "max_price": "Maximum Price",
+    "budget": "Budget",
+    "premium": "Premium",
+    "reset_filters": "Reset Filters"
+  },
+  "restaurant": {
+    "menu": "Menu",
+    "reviews": "Reviews",
+    "add_review": "Add Review",
+    "rating": "Rating",
+    "review": "Review",
+    "submit_review": "Submit Review",
+    "smart_combo": "Smart Combo",
+    "quick_lunch": "Quick Lunch",
+    "high_protein": "High Protein",
+    "under_budget": "Under ₹200"
+  },
+  "cart": {
+    "empty_cart": "Your cart is empty",
+    "total": "Total",
+    "proceed_checkout": "Proceed to Checkout",
+    "remove": "Remove",
+    "add_more": "Add More Items"
+  },
+  "checkout": {
+    "delivery_address": "Delivery Address",
+    "manual_entry": "Enter Address Manually",
+    "saved_address": "Use Saved Address",
+    "use_gps": "Use Current Location",
+    "payment_method": "Payment Method",
+    "card": "Card",
+    "upi": "UPI",
+    "cash_on_delivery": "Cash on Delivery",
+    "place_order": "Place Order",
+    "order_placed": "Order Placed Successfully"
+  },
+  "orders": {
+    "my_orders": "My Orders",
+    "order_history": "Order History",
+    "no_orders": "No orders yet",
+    "status": "Status",
+    "total_amount": "Total Amount",
+    "pending": "Pending",
+    "confirmed": "Confirmed",
+    "preparing": "Preparing",
+    "picked_up": "Picked Up",
+    "out_for_delivery": "Out for Delivery",
+    "delivered": "Delivered",
+    "cancelled": "Cancelled",
+    "cancel_order": "Cancel Order",
+    "track_order": "Track Order"
+  },
+  "notifications": {
+    "notifications": "Notifications",
+    "unread": "Unread",
+    "mark_as_read": "Mark as Read",
+    "delete": "Delete",
+    "no_notifications": "No notifications"
+  },
+  "wishlist": {
+    "wishlist": "My Favorites",
+    "add_to_wishlist": "Add to Favorites",
+    "remove_from_wishlist": "Remove from Favorites",
+    "empty_wishlist": "No favorites yet",
+    "view_favorite": "View this favorite"
+  },
+  "referral": {
+    "referral_program": "Referral Program",
+    "my_referral": "My Referral Code",
+    "share_code": "Share Your Code",
+    "referral_code": "Referral Code",
+    "credit_earned": "Credit Earned",
+    "apply_code": "Apply Referral Code",
+    "enter_code": "Enter Code",
+    "apply": "Apply",
+    "code_applied": "Code Applied Successfully",
+    "invalid_code": "Invalid or expired code",
+    "earn_credit": "Earn ₹50 credit when your friend orders"
+  }
+}
