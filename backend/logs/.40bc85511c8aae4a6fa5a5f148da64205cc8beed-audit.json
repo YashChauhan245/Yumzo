@@ -1,0 +1,15 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "C:\\Users\\Yash\\Desktop\\yumzo\\backend\\logs\\.40bc85511c8aae4a6fa5a5f148da64205cc8beed-audit.json",
+    "files": [
+        {
+            "date": 1777915526179,
+            "name": "C:\\Users\\Yash\\Desktop\\yumzo\\backend\\logs\\error-2026-05-04.log",
+            "hash": "427680ceb967d666cc96d16fdea2c6b462a43159a1908b2f824c213bf6fe96f5"
+        }
+    ],
+    "hashType": "sha256"
+}

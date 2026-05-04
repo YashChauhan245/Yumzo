@@ -216,7 +216,7 @@ const updateAssignedOrderStatus = async (req, res) => {
       driver_id: order.driver_id,
       status: order.status,
       updated_at: new Date().toISOString(),
-    });}
+    });
 
     if (order.status === 'delivered') {
       clearOrderLocation(order.id);
