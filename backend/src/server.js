@@ -14,8 +14,29 @@ const driverRoutes = require('./routes/driver');
 const adminRoutes = require('./routes/admin');
 const uploadRoutes = require('./routes/uploads');
 const { setSocketServer } = require('./config/socket');
+const logger = require('./config/logger');
+const { errorHandler } = require('./config/errors');
 
 const app = express();
+
+// Request logging middleware
+app.use((req, res, next) => {
+  const start = Date.now();
+  
+  res.on('finish', () => {
+    const duration = Date.now() - start;
+    const logLevel = res.statusCode >= 400 ? 'warn' : 'info';
+    
+    logger[logLevel](`${req.method} ${req.originalUrl}`, {
+      statusCode: res.statusCode,
+      duration: `${duration}ms`,
+      ip: req.ip,
+      userAgent: req.get('user-agent'),
+    });
+  });
+
+  next();
+});
 
 // Security headers
 app.use(helmet());
@@ -106,11 +127,7 @@ app.use((_req, res) =>
 );
 
 // Global error handler
-// eslint-disable-next-line no-unused-vars
-app.use((err, _req, res, _next) => {
-  console.error('Unhandled error:', err);
-  res.status(500).json({ success: false, message: 'Internal server error' });
-});
+app.use(errorHandler);
 
 // Start server and create DB tables
 const PORT = process.env.PORT || 5000;
@@ -118,7 +135,7 @@ const PORT = process.env.PORT || 5000;
 const start = async () => {
   try {
     if (!process.env.DATABASE_URL) {
-      console.warn('⚠️  DATABASE_URL not set. Please configure env before starting API.');
+      logger.warn('DATABASE_URL not set. Please configure env before starting API.');
     }
 
     const httpServer = http.createServer(app);
@@ -147,19 +164,22 @@ const start = async () => {
 
     httpServer.once('error', (err) => {
       if (err.code === 'EADDRINUSE') {
-        console.warn(`Port ${PORT} is already in use. Yumzo API is likely already running.`);
+        logger.warn(`Port ${PORT} is already in use. Yumzo API is likely already running.`);
         process.exit(0);
       }
 
-      console.error('Failed to bind server port:', err);
+      logger.error('Failed to bind server port', { error: err.message, code: err.code });
       process.exit(1);
     });
 
     httpServer.listen(PORT, () => {
-      console.log(` Yumzo API running on port ${PORT} (${process.env.NODE_ENV || 'development'})`);
+      logger.info(`Yumzo API running on port ${PORT}`, {
+        environment: process.env.NODE_ENV || 'development',
+        timestamp: new Date().toISOString(),
+      });
     });
   } catch (err) {
-    console.error('Failed to start server:', err);
+    logger.error('Failed to start server', { error: err.message, stack: err.stack });
     process.exit(1);
   }
 };

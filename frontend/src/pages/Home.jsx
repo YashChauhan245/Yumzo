@@ -76,7 +76,10 @@ const Home = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [activeCuisine, setActiveCuisine] = useState('All');
+  const [minRating, setMinRating] = useState(0);
+  const [maxPrice, setMaxPrice] = useState(5); // ₹ to ₹₹₹₹₹
   const [page, setPage] = useState(1);
+  const [showFilters, setShowFilters] = useState(false);
   const [pagination, setPagination] = useState({
     page: 1,
     totalPages: 1,
@@ -139,8 +142,19 @@ const Home = () => {
     if (activeCuisine !== 'All') {
       result = result.filter(r => r.cuisine_type === activeCuisine);
     }
+    // Filter by minimum rating
+    result = result.filter(r => {
+      const rating = Number(r.rating) || 0;
+      return rating >= minRating;
+    });
+    // Filter by price range (convert ₹ to number: 1=₹, 2=₹₹, etc)
+    result = result.filter(r => {
+      const priceStr = r.price_range || '₹₹';
+      const priceLevel = priceStr.length; // Count ₹ symbols
+      return priceLevel <= maxPrice;
+    });
     return result;
-  }, [restaurants, search, activeCuisine]);
+  }, [restaurants, search, activeCuisine, minRating, maxPrice]);
 
   const getFallbackRating = (name = '') => {
     const options = ['4.2', '4.5', '4.8'];
@@ -187,12 +201,83 @@ const Home = () => {
               />
             </div>
             <button
-              onClick={() => loadRestaurants(page)}
-              className="home-refresh-btn rounded-xl bg-[#3A3A3A] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#2F2F2F]"
+              onClick={() => setShowFilters(!showFilters)}
+              className="home-filter-btn relative rounded-xl bg-[#3A3A3A] px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-[#2F2F2F] flex items-center gap-2"
+              title="Toggle advanced filters"
             >
-              Refresh
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
+              </svg>
+              Filters
+              {(minRating > 0 || maxPrice < 5) && (
+                <span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-blue-500 text-[10px] font-bold text-white">
+                  {Number(minRating > 0) + Number(maxPrice < 5)}
+                </span>
+              )}
             </button>
           </div>
+
+          {/* Advanced Filters Panel */}
+          {showFilters && (
+            <div className="mt-4 rounded-xl border border-[#2A2A2A] bg-[#1A1A1A] p-5">
+              <div className="grid gap-5 md:grid-cols-2">
+                {/* Rating Filter */}
+                <div>
+                  <label className="mb-3 flex items-center justify-between text-sm font-medium text-white">
+                    <span>Minimum Rating</span>
+                    <span className="text-xs font-bold text-blue-400">{minRating.toFixed(1)} ★</span>
+                  </label>
+                  <input
+                    type="range"
+                    min="0"
+                    max="5"
+                    step="0.5"
+                    value={minRating}
+                    onChange={(e) => setMinRating(Number(e.target.value))}
+                    className="w-full cursor-pointer"
+                  />
+                  <div className="mt-2 flex justify-between text-xs text-[#71717A]">
+                    <span>0.0</span>
+                    <span>5.0</span>
+                  </div>
+                </div>
+
+                {/* Price Range Filter */}
+                <div>
+                  <label className="mb-3 flex items-center justify-between text-sm font-medium text-white">
+                    <span>Maximum Price</span>
+                    <span className="text-xs font-bold text-blue-400">
+                      {'₹'.repeat(maxPrice)} {maxPrice < 5 ? '(' + maxPrice + ')' : '(Any)'}
+                    </span>
+                  </label>
+                  <input
+                    type="range"
+                    min="1"
+                    max="5"
+                    step="1"
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(Number(e.target.value))}
+                    className="w-full cursor-pointer"
+                  />
+                  <div className="mt-2 flex justify-between text-xs text-[#71717A]">
+                    <span>Budget</span>
+                    <span>Premium</span>
+                  </div>
+                </div>
+              </div>
+
+              <button
+                onClick={() => {
+                  setMinRating(0);
+                  setMaxPrice(5);
+                  setShowFilters(false);
+                }}
+                className="mt-4 w-full rounded-lg border border-[#2A2A2A] bg-[#0B0B0B] py-2 text-sm font-medium text-[#A1A1AA] transition-colors hover:text-white"
+              >
+                Reset Filters
+              </button>
+            </div>
+          )}
 
           <div className="mt-5 grid grid-cols-2 gap-3 md:grid-cols-4">
             {[

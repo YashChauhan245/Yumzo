@@ -101,8 +101,8 @@ const acceptOrder = async (req, res) => {
       });
     }
 
-    emitOrderStatusUpdate({
-      id: order.id,
+    emitOrderStatusUpdate(order.id, {
+      order_id: order.id,
       user_id: order.user_id,
       driver_id: order.driver_id,
       status: order.status,
@@ -143,8 +143,8 @@ const rejectOrder = async (req, res) => {
       });
     }
 
-    emitOrderStatusUpdate({
-      id: order.id,
+    emitOrderStatusUpdate(order.id, {
+      order_id: order.id,
       user_id: order.user_id,
       driver_id: order.driver_id,
       status: order.status,
@@ -210,13 +210,13 @@ const updateAssignedOrderStatus = async (req, res) => {
       });
     }
 
-    emitOrderStatusUpdate({
-      id: order.id,
+    emitOrderStatusUpdate(order.id, {
+      order_id: order.id,
       user_id: order.user_id,
       driver_id: order.driver_id,
       status: order.status,
       updated_at: new Date().toISOString(),
-    });
+    });}
 
     if (order.status === 'delivered') {
       clearOrderLocation(order.id);
