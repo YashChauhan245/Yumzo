@@ -1,7 +1,19 @@
 import { useEffect, useRef, useState } from 'react';
 import io from 'socket.io-client';
 
-const SOCKET_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
+const resolveSocketUrl = () => {
+  const apiUrl = import.meta.env.VITE_API_URL;
+  if (apiUrl && /^https?:\/\//i.test(apiUrl)) {
+    try {
+      return new URL(apiUrl).origin;
+    } catch {
+      return apiUrl.endsWith('/api') ? apiUrl.slice(0, -4) : apiUrl;
+    }
+  }
+  return 'http://localhost:5000';
+};
+
+const SOCKET_URL = resolveSocketUrl();
 
 class SocketManager {
   constructor() {

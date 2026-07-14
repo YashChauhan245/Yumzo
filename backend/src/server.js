@@ -125,6 +125,20 @@ app.use('/api/uploads', uploadRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin/analytics', analyticsRoutes);
 
+// Serve frontend static assets in production
+if (process.env.NODE_ENV === 'production') {
+  const frontendBuildPath = path.join(__dirname, '..', '..', 'frontend', 'dist');
+  app.use(express.static(frontendBuildPath));
+
+  // Fallback for React Router SPA routes
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+      return next();
+    }
+    res.sendFile(path.join(frontendBuildPath, 'index.html'));
+  });
+}
+
 // 404 handler
 app.use((_req, res) =>
   res.status(404).json({ success: false, message: 'Route not found' }),
