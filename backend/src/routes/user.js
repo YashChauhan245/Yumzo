@@ -10,12 +10,12 @@ const {
 } = require('../controllers/restaurantController');
 const { getCart, addToCart, updateQuantity, removeItem, clearCart } = require('../controllers/cartController');
 const { placeOrder, getOrderHistory, getOrder, cancelOrder, getOrderTracking } = require('../controllers/orderController');
-const { handlePayment, getPaymentStatus } = require('../controllers/paymentController');
 const { getReels, toggleReelLike, getReelComments, addReelComment } = require('../controllers/reelController');
 const { getAddresses, addAddress, editAddress, removeAddress } = require('../controllers/addressController');
 const { getWishlist, addToWishlist, removeFromWishlist, checkInWishlist } = require('../controllers/wishlistController');
 const { getUserReferrals, createReferral, applyReferralCode, validateReferralCode } = require('../controllers/referralController');
 const { getNotifications, getUnreadCount, markAsRead, markAllAsRead, deleteNotification } = require('../controllers/notificationController');
+const { handleMockPayment, getPaymentStatus } = require('../controllers/stripePaymentController');
 const groupOrderRoutes = require('./groupOrder');
 
 const router = express.Router();
@@ -170,7 +170,7 @@ router.post(
       .isString()
       .withMessage('payment_details must be a string'),
   ],
-  handlePayment,
+  handleMockPayment,
 );
 router.get('/payments/:orderId', getPaymentStatus);
 

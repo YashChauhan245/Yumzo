@@ -1,10 +1,8 @@
 import { Suspense, lazy } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import ProtectedRoute from './components/ProtectedRoute';
-import { queryClient } from './config/queryClient';
 
 const Login = lazy(() => import('./components/auth/Login'));
 const Signup = lazy(() => import('./components/auth/Signup'));
@@ -36,8 +34,7 @@ function App() {
   );
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+    <BrowserRouter>
         <AuthProvider>
           <Toaster
             position="top-right"
@@ -196,7 +193,6 @@ function App() {
         </Suspense>
       </AuthProvider>
     </BrowserRouter>
-    </QueryClientProvider>
   );
 }
 
