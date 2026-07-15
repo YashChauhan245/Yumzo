@@ -10,7 +10,8 @@ const resolveSocketUrl = () => {
       return apiUrl.endsWith('/api') ? apiUrl.slice(0, -4) : apiUrl;
     }
   }
-  return 'http://localhost:5000';
+  if (import.meta.env.DEV) return 'http://localhost:5000';
+  return typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5000';
 };
 
 const SOCKET_URL = resolveSocketUrl();

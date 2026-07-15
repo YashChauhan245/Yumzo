@@ -1,5 +1,7 @@
 # 🚀 Yumzo - Production-Ready Food Delivery Platform
 
+### 🔗 Live Production Link: [https://yumzo-09or.onrender.com](https://yumzo-09or.onrender.com)
+
 **Yumzo** is a complete, multi-role food delivery platform engineered with a robust backend using **Node.js, Express, Prisma, and PostgreSQL** (hosted on Supabase) and a highly responsive, modern frontend using **React 19, Vite, and Tailwind CSS v4**.
 
 Unlike typical simple CRUD applications, Yumzo simulates realistic, operational logistically-driven workflows. It manages strict order status transition rules, role-specific dashboard access levels, real-time client-server communication using WebSockets, GPS-assisted checkout, and collaborative group ordering rooms.
@@ -246,3 +248,24 @@ You can launch both servers simultaneously using root-level npm scripts:
 The application will be accessible at:
 *   Frontend Client: `http://localhost:5173`
 *   Backend REST API: `http://localhost:5000`
+
+### 5. Production Deployment
+
+The application is deployed on **Render** using a unified build setup where the Express backend statically serves the compiled frontend assets.
+
+*   **Production Live URL**: [https://yumzo-09or.onrender.com](https://yumzo-09or.onrender.com)
+*   **REST API Root**: `https://yumzo-09or.onrender.com/api`
+*   **Database Security**: Row-Level Security (RLS) is enabled and all direct public REST/GraphQL API access is blocked.
+
+#### Render Configurations:
+- **Build Command**: `npm run build:prod`
+- **Start Command**: `npm start`
+- **Environment Variables**:
+  - `NODE_ENV`: `production`
+  - `DATABASE_URL`: *(Supabase connection URL using direct port `5432`)*
+  - `ALLOWED_ORIGINS`: `https://yumzo-09or.onrender.com`
+  - `JWT_SECRET`: *(your secure JWT secret)*
+  - `JWT_REFRESH_SECRET`: *(your secure refresh secret)*
+  - `ADMIN_EMAIL`: `yashchau.work@gmail.com`
+  - `GEMINI_API_KEY`: *(your Gemini API key)*
+
