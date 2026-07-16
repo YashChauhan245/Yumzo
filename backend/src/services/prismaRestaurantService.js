@@ -95,7 +95,7 @@ const findRestaurantById = async (id) => {
       u.name AS owner_name
     FROM restaurants r
     LEFT JOIN users u ON u.id = r.owner_id
-    WHERE r.id = CAST(${id} AS uuid) AND r.owner_id IS NOT NULL
+    WHERE r.id = ${id} AND r.owner_id IS NOT NULL
     LIMIT 1
   `;
 

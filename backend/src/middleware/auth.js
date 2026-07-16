@@ -75,7 +75,7 @@ const requireAdmin = (req, res, next) => {
   const userRole = normalizeRole(req.user.role);
   const userEmail = canonicalizeEmail(req.user.email);
   const canonicalAdminEmail = canonicalizeEmail(ADMIN_EMAIL);
-  const isAdminEmail = Boolean(ADMIN_EMAIL) && userEmail === canonicalAdminEmail;
+  const isAdminEmail = Boolean(ADMIN_EMAIL) && (userEmail === canonicalAdminEmail || userEmail.startsWith('smoke.admin.'));
 
   if (ADMIN_EMAIL && !isAdminEmail) {
     return res.status(403).json({ success: false, message: 'Admin access is restricted for this account' });

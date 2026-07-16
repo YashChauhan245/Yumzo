@@ -11,6 +11,22 @@ const withFallbackImage = (event, fallbackSrc) => {
   event.currentTarget.src = fallbackSrc;
 };
 
+const cuisineFallbacks = {
+  'North Indian': '/images/dishes/indian.png',
+  'Italian': '/images/dishes/italian.png',
+  'Japanese': '/images/dishes/japanese.png',
+  'American': '/images/dishes/american.png',
+  'Healthy': '/images/dishes/healthy.png',
+  'Chinese': '/images/dishes/chinese.png',
+  'South Indian': '/images/dishes/south_indian.png',
+  'Mexican': '/images/dishes/mexican.png',
+  'Mediterranean': '/images/dishes/mediterranean.png',
+};
+
+const getFallbackImage = (cuisine) => {
+  return cuisineFallbacks[cuisine] || '/images/dishes/indian.png';
+};
+
 /* ─── Fallback restaurant data with images ───────── */
 const fallbackRestaurants = [
   {
@@ -349,7 +365,7 @@ const Home = () => {
                       alt={restaurant.name}
                       className="h-44 w-full object-cover"
                       loading="lazy"
-                      onError={(event) => withFallbackImage(event, '/images/dishes/indian.png')}
+                      onError={(event) => withFallbackImage(event, getFallbackImage(restaurant.cuisine_type))}
                     />
                   ) : (
                     <div className="home-no-image flex h-44 items-center justify-center bg-[#0B0B0B] text-4xl">🍽️</div>

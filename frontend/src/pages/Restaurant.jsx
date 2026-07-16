@@ -12,6 +12,22 @@ const withFallbackImage = (event, fallbackSrc) => {
   event.currentTarget.src = fallbackSrc;
 };
 
+const cuisineFallbacks = {
+  'North Indian': '/images/dishes/indian.png',
+  'Italian': '/images/dishes/italian.png',
+  'Japanese': '/images/dishes/japanese.png',
+  'American': '/images/dishes/american.png',
+  'Healthy': '/images/dishes/healthy.png',
+  'Chinese': '/images/dishes/chinese.png',
+  'South Indian': '/images/dishes/south_indian.png',
+  'Mexican': '/images/dishes/mexican.png',
+  'Mediterranean': '/images/dishes/mediterranean.png',
+};
+
+const getFallbackImage = (cuisine) => {
+  return cuisineFallbacks[cuisine] || '/images/dishes/indian.png';
+};
+
 const MENU_CACHE_TTL_MS = 60 * 1000;
 const REVIEWS_CACHE_TTL_MS = 60 * 1000;
 const menuCache = new Map();
@@ -286,7 +302,7 @@ const Restaurant = () => {
                       alt={item.name}
                       className="h-32 w-full object-cover"
                       loading="lazy"
-                      onError={(event) => withFallbackImage(event, '/images/dishes/indian.png')}
+                      onError={(event) => withFallbackImage(event, getFallbackImage(restaurant?.cuisine_type))}
                     />
                   ) : (
                     <div className="flex h-32 items-center justify-center text-3xl">🍲</div>

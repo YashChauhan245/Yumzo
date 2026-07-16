@@ -11,13 +11,6 @@ export default function FoodReelsPage() {
   const itemRefs = useRef([]);
   const [reels, setReels] = useState([]);
   const [isLoadingFeed, setIsLoadingFeed] = useState(true);
-  const [page, setPage] = useState(1);
-  const [pagination, setPagination] = useState({
-    page: 1,
-    totalPages: 1,
-    hasPrevPage: false,
-    hasNextPage: false,
-  });
   const [currentIndex, setCurrentIndex] = useState(0);
   const [activeCommentsReel, setActiveCommentsReel] = useState(null);
   const [comments, setComments] = useState([]);
@@ -42,20 +35,8 @@ export default function FoodReelsPage() {
       setIsLoadingFeed(true);
 
       try {
-        const response = await reelsAPI.getFeed({ page, limit: 5 });
+        const response = await reelsAPI.getFeed({ page: 1, limit: 20 });
         const feed = response.data?.data?.reels || [];
-        const nextPagination = response.data?.pagination;
-
-        if (mounted) {
-          setPagination(
-            nextPagination || {
-              page,
-              totalPages: 1,
-              hasPrevPage: page > 1,
-              hasNextPage: false,
-            },
-          );
-        }
 
         if (mounted) {
           if (feed.length > 0) {
@@ -80,11 +61,7 @@ export default function FoodReelsPage() {
     return () => {
       mounted = false;
     };
-  }, [fallbackReels, page]);
-
-  useEffect(() => {
-    setCurrentIndex(0);
-  }, [page]);
+  }, [fallbackReels]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -220,7 +197,7 @@ export default function FoodReelsPage() {
         </button>
 
         <div className="food-reels-counter rounded-full bg-black/45 px-3 py-1.5 text-xs font-semibold text-white/90 backdrop-blur sm:text-sm">
-          {currentIndex + 1} / {reels.length} | Page {pagination.page}
+          {currentIndex + 1} / {reels.length}
         </div>
       </header>
 
@@ -305,29 +282,7 @@ export default function FoodReelsPage() {
         </div>
       )}
 
-      {!isLoadingFeed ? (
-        <div className="pointer-events-none absolute inset-x-0 bottom-4 z-40 flex justify-center">
-          <div className="food-reels-pagination-dock pointer-events-auto flex items-center gap-3 rounded-full border border-[#2A2A2A] bg-black/60 px-3 py-2 backdrop-blur">
-            <button
-              type="button"
-              onClick={() => setPage((prev) => Math.max(1, prev - 1))}
-              disabled={!pagination.hasPrevPage}
-              className="food-reels-pagination-btn rounded-md border border-[#2A2A2A] px-2 py-1 text-xs text-white disabled:opacity-40"
-            >
-              Prev page
-            </button>
-            <span className="food-reels-pagination-text text-xs text-[#D4D4D8]">{pagination.page} / {pagination.totalPages}</span>
-            <button
-              type="button"
-              onClick={() => setPage((prev) => prev + 1)}
-              disabled={!pagination.hasNextPage}
-              className="food-reels-pagination-btn rounded-md border border-[#2A2A2A] px-2 py-1 text-xs text-white disabled:opacity-40"
-            >
-              Next page
-            </button>
-          </div>
-        </div>
-      ) : null}
+      {/* No pagination controls needed, scroll is continuous like Instagram */}
     </section>
   );
 }

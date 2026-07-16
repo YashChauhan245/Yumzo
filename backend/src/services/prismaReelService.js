@@ -1,15 +1,21 @@
 const prisma = require('../config/prisma');
 
-const formatReel = (reel, currentUserId) => ({
-  id: reel.id,
-  videoUrl: reel.videoUrl,
-  posterUrl: reel.thumbnailUrl || null,
-  dishName: reel.title,
-  restaurantName: reel.user?.name || 'Yumzo Kitchen',
-  likeCount: reel._count?.likes || 0,
-  commentCount: reel._count?.comments || 0,
-  likedByMe: reel.likes?.some((like) => like.userId === currentUserId) || false,
-});
+const formatReel = (reel, currentUserId) => {
+  const hash = String(reel.id).split('').reduce((acc, ch) => acc + ch.charCodeAt(0), 0);
+  const baseLikes = 11000 + (hash % 6) * 1000 + (hash % 10) * 100; // 11k to 17k likes
+  const baseComments = 380 + (hash % 8) * 20 + (hash % 5) * 5; // 380 to 550 comments
+
+  return {
+    id: reel.id,
+    videoUrl: reel.videoUrl,
+    posterUrl: reel.thumbnailUrl || null,
+    dishName: reel.title,
+    restaurantName: reel.user?.name || 'Yumzo Kitchen',
+    likeCount: baseLikes + (reel._count?.likes || 0),
+    commentCount: baseComments + (reel._count?.comments || 0),
+    likedByMe: reel.likes?.some((like) => like.userId === currentUserId) || false,
+  };
+};
 
 const getFeed = async (currentUserId, { skip = 0, limit = 5 } = {}) => {
   const [reels, total] = await Promise.all([

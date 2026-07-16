@@ -6,17 +6,20 @@ const { signupValidation, loginValidation } = require('../middleware/validate');
 
 const router = express.Router();
 
-// Rate limiting: max 10 auth requests per 15 minutes per IP (disabled in test)
 const authLimiter = rateLimit({
   windowMs: 15 * 60 * 1000,
-  max: 10,
+  max: process.env.NODE_ENV === 'production' ? 10 : 1000,
   message: {
     success: false,
     message: 'Too many requests from this IP, please try again after 15 minutes',
   },
   standardHeaders: true,
   legacyHeaders: false,
-  skip: () => process.env.NODE_ENV === 'test',
+  skip: (req) => {
+    if (process.env.NODE_ENV === 'test') return true;
+    if (process.env.NODE_ENV !== 'production') return true;
+    return false;
+  },
 });
 
 // POST /api/auth/signup

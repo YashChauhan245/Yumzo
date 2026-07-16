@@ -41,7 +41,17 @@ app.use((req, res, next) => {
 });
 
 // Security headers
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        ...helmet.contentSecurityPolicy.getDefaultDirectives(),
+        'img-src': ["'self'", "data:", "https://images.pexels.com", "https://images.unsplash.com"],
+        'media-src': ["'self'", "https://videos.pexels.com"],
+      },
+    },
+  })
+);
 
 // CORS — allow requests from frontend origin (or all origins in dev)
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || '')

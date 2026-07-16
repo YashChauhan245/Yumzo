@@ -12,32 +12,44 @@ const demoReels = [
   {
     title: 'Molten Lava Cake',
     caption: 'Warm chocolate center with a scoop of vanilla on top.',
-    videoUrl: 'https://videos.pexels.com/video-files/3327722/3327722-uhd_2560_1440_24fps.mp4',
+    videoUrl: 'https://videos.pexels.com/video-files/3195396/3195396-uhd_2560_1440_25fps.mp4',
     thumbnailUrl: '/images/reels/reel2.png',
   },
   {
     title: 'Butter Garlic Naan',
     caption: 'Fresh naan straight from tandoor with garlic butter glaze.',
-    videoUrl: 'https://videos.pexels.com/video-files/5721039/5721039-uhd_2560_1440_30fps.mp4',
+    videoUrl: 'https://videos.pexels.com/video-files/3195392/3195392-uhd_2560_1440_25fps.mp4',
     thumbnailUrl: '/images/reels/reel3.png',
   },
   {
     title: 'Caramel Latte Art',
     caption: 'Silky latte art with caramel drizzle and cocoa dust.',
-    videoUrl: 'https://videos.pexels.com/video-files/5946762/5946762-uhd_2560_1440_30fps.mp4',
+    videoUrl: 'https://videos.pexels.com/video-files/3195393/3195393-uhd_2560_1440_25fps.mp4',
     thumbnailUrl: '/images/reels/reel4.png',
   },
   {
-    title: 'Salmon Dragon Roll',
-    caption: 'Fresh salmon roll with creamy avocado and spicy mayo.',
-    videoUrl: 'https://videos.pexels.com/video-files/3298572/3298572-uhd_2560_1440_25fps.mp4',
+    title: 'Crispy Veg Salad',
+    caption: 'Crunchy colorful greens with olive oil vinaigrette.',
+    videoUrl: 'https://videos.pexels.com/video-files/3195347/3195347-uhd_2560_1440_25fps.mp4',
     thumbnailUrl: '/images/reels/reel5.png',
   },
   {
     title: 'Loaded Cheese Nachos',
     caption: 'Crispy chips, melted cheese, jalapeno, and salsa.',
-    videoUrl: 'https://videos.pexels.com/video-files/5587442/5587442-uhd_2560_1440_24fps.mp4',
+    videoUrl: 'https://videos.pexels.com/video-files/3195348/3195348-uhd_2560_1440_25fps.mp4',
     thumbnailUrl: '/images/reels/reel6.png',
+  },
+  {
+    title: 'Berry Acai Bowl',
+    caption: 'Superfood acai blend topped with fresh organic berries.',
+    videoUrl: 'https://videos.pexels.com/video-files/3195349/3195349-uhd_2560_1440_25fps.mp4',
+    thumbnailUrl: '/images/reels/reel1.png',
+  },
+  {
+    title: 'Salmon Dragon Roll',
+    caption: 'Fresh Norwegian salmon rolled with avocado and spicy mayo.',
+    videoUrl: 'https://videos.pexels.com/video-files/3195350/3195350-uhd_2560_1440_25fps.mp4',
+    thumbnailUrl: '/images/reels/reel2.png',
   },
 ];
 
