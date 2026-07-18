@@ -111,6 +111,7 @@ const globalLimiter = rateLimit({
   legacyHeaders: false,
   skip: (req) => {
     if (process.env.NODE_ENV === 'test') return true;
+    if (isDev) return true;
 
     const origin = req.get('origin') || '';
     // Local frontend polling can be frequent; avoid 429 noise in development.
